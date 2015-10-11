@@ -14,6 +14,7 @@ namespace na {
 		inline int getIndex(int x, int y);
 
 		friend Mat operator +(const Mat& a, const Mat& b);
+		friend Mat operator -(const Mat& a, const Mat& b);
 
 	public:
 		int width, height;

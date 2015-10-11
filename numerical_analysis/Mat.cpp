@@ -48,3 +48,18 @@ Mat operator+(const Mat& a, const Mat& b)
 		return ret;
 	}
 }
+
+Mat operator-(const Mat& a, const Mat& b)
+{
+	if (a.width != b.width || a.height != b.height) {
+		std::cout << "Error: Can't add them!" << std::endl;
+		return Mat();
+	}
+	else {
+		Mat ret(a.width, a.height);
+		for (int i = 0; i < a.width*a.height; i++) {
+			ret.data[i] = a.data[i] - b.data[i];
+		}
+		return ret;
+	}
+}
