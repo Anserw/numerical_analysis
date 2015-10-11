@@ -5,16 +5,28 @@ using namespace na;
 
 Mat::Mat()
 {
+	width = 0;
+	height = 0;
+	items_sum = 0;
+	data = NULL;
 }
 
 Mat::Mat(int w, int h)
 {
 	width = w;
-	height = h;
-	data = new double[w*h];
+	height = h;	
 	items_sum = w*h;
+	data = new double[items_sum];
 }
 
+void Mat::resize(int w, int h)
+{
+	delete(data);
+	width = w;
+	height = h;
+	items_sum = w*h;
+	data = new double[items_sum];
+}
 
 Mat::~Mat()
 {
@@ -116,4 +128,9 @@ Mat operator*(const Mat& a, const Mat& b)
 		}
 		return ret;
 	}
+}
+
+double Mat::operator [](int index) const
+{
+	return data[index];
 }

@@ -11,6 +11,7 @@ namespace na {
 
 		bool init(double *input_data);
 		void zero(void);
+		void resize(int w, int h);
 
 		inline int getIndex(int x, int y) const;
 		static inline int getIndex(int x, int y, int a_width);
@@ -23,6 +24,7 @@ namespace na {
 		friend Mat operator +(const Mat& a, const Mat& b);
 		friend Mat operator -(const Mat& a, const Mat& b);
 		friend Mat operator *(const Mat& a, const Mat& b);
+		double operator [](int index) const;
 
 	public:
 		int width, height, items_sum;
