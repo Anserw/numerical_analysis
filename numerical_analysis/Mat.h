@@ -10,14 +10,22 @@ namespace na {
 		~Mat();
 
 		bool init(double *input_data);
+		void zero(void);
 
-		inline int getIndex(int x, int y);
+		inline int getIndex(int x, int y) const;
+		static inline int getIndex(int x, int y, int a_width);
+		inline int getX(int index) const;
+		inline int getY(int index) const;
+
+		double getItem(int x, int y) const;
+		void setItem(int x, int y, double val);
 
 		friend Mat operator +(const Mat& a, const Mat& b);
 		friend Mat operator -(const Mat& a, const Mat& b);
+		friend Mat operator *(const Mat& a, const Mat& b);
 
 	public:
-		int width, height;
+		int width, height, items_sum;
 		double *data;
 	private:
 		
