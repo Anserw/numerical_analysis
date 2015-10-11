@@ -51,12 +51,12 @@ void Mat::zero(void)
 
 int Mat::getIndex(int x, int y) const
 {
-	return y*width + x;
+	return x*width + y;
 }
 
 int Mat::getIndex(int x, int y, int a_width)
 {
-	return y*a_width + x;
+	return x*a_width + y;
 }
 
 int Mat::getX(int index) const

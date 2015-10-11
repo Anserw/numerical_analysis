@@ -11,7 +11,7 @@ namespace na {
 
 		bool init(double *input_data);
 		void zero(void);
-		void resize(int w, int h);
+		void resize(int w, int h);		
 
 		inline int getIndex(int x, int y) const;
 		static inline int getIndex(int x, int y, int a_width);
