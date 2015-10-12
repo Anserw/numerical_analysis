@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 #include "../numerical_analysis/na_algorithm.h"
 
+using namespace na;
 
 TEST(solveLSEwithSGETest, solve3x3problem1)
 {
@@ -61,4 +62,19 @@ TEST(solveLinearSimultaneousEquationsTest, solve3x3problemWithSequentialGaussian
 	EXPECT_NEAR(17.46, x[0], 0.005);
 	EXPECT_NEAR(-45.76, x[1], 0.005);
 	EXPECT_NEAR(5.546, x[2], 0.0005);
+}
+
+TEST(solveLSEwithDoolitlle, solve3x3problem)
+{
+	Mat A(3, 3);
+	Vec b(3);
+	Vec x(3);
+	A.init("8.1, 2.3, -1.5, 0.5, -6.23, 0.87, 2.5, 1.5, 10.2");
+	EXPECT_DOUBLE_EQ(10.2, A[2][2]);
+	b.init("6.1, 2.3, 1.8 ");
+	EXPECT_DOUBLE_EQ(1.8, b[2]);
+	EXPECT_TRUE(solveLSEwithDoolittle(A, x, b));
+	EXPECT_NEAR(0.8409, x[0], 0.0005);
+	EXPECT_NEAR(-0.2997, x[1], 0.0005);
+	EXPECT_NEAR(0.01415, x[2], 0.0005);
 }

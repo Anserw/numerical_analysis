@@ -2,20 +2,27 @@
 #include "Mat.h"
 #include "Vec.h"
 
-using namespace na;
 
-enum enum_method{
-	//顺序高斯消去法
-	METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION,
+namespace na {
 
-	//列主元素高斯消去法
-	METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION
-};
+	enum enum_method{
+		//顺序高斯消去法
+		METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION,
+
+		//列主元素高斯消去法
+		METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION,
+
+		//Doolittle分解法
+		METHOD_DOOLITTLE
+	};
 
 
-bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, 
-	enum_method method=METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION);
+	bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b,
+		enum_method method = METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION);
 
-bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b);
+	bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b);
 
-bool solveLSEwithCMEGE(const Mat& A, Vec& x, const Vec& b);
+	bool solveLSEwithCMEGE(const Mat& A, Vec& x, const Vec& b);
+
+	bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);
+}
