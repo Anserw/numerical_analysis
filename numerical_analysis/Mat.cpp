@@ -42,6 +42,57 @@ bool Mat::init(double* input_data)
 	return true;
 }
 
+bool Mat::init(const std::string& input_s)
+{
+	int count = 0, l;
+	double curr, mul=1;
+	bool flag = false;
+	bool dot = false;
+	char ch;
+	l = input_s.length();
+	if (l > items_sum) {
+		l = items_sum;
+	}
+	for (int i = 0; i < l; i++) {
+		ch = input_s[i];
+		if (ch == ' ' || ch == ',' ) {
+			if (flag) {
+				data[count++] = curr;
+				curr = 0;		
+				flag = false;
+				dot = false;
+				mul = 1;
+			}
+		}else if (ch >= '0' && ch <= '9') {
+			if (flag) {
+				if (dot) {
+					mul = mul / 10;
+					curr += mul * (ch - '0');
+				}else {
+					curr = curr * 10 + (ch - '0');
+				}
+			}else {
+				flag = true;
+				dot = false;
+				mul = 1;
+				curr = ch - '0';
+			}
+		} else if (ch == '.') {
+			if (dot) {
+				return false;
+			}else {
+				dot = true;
+			}
+		} else {
+			return false;
+		}
+	}
+	if (flag) {
+		data[count++] = curr;		
+	}
+	return true;
+}
+
 void Mat::zero(void)
 {
 	for (int i = 0; i < items_sum; i++) {

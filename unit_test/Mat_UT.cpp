@@ -20,6 +20,18 @@ TEST(MatTest, operatorBrace)
 	EXPECT_EQ(7, A[2][1]);
 }
 
+TEST(MatTest, func_input)
+{
+	Mat A(3, 3);
+	EXPECT_TRUE( A.init("1, 2.2, 3.0, 0.1, 123") );
+	EXPECT_DOUBLE_EQ(1, A[0][0]);
+	EXPECT_DOUBLE_EQ(2.2, A[0][1]);
+	EXPECT_DOUBLE_EQ(3.0, A[0][2]);
+	EXPECT_DOUBLE_EQ(0.1, A[1][0]);
+	EXPECT_DOUBLE_EQ(123, A[1][1]);
+	
+}
+
 TEST(VecTest, operatorBrace)
 {
 	double l_vec[3] = { 1, 2, 3 };

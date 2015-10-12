@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 namespace na {
 	class Mat
@@ -10,6 +11,8 @@ namespace na {
 		~Mat();
 
 		bool init(double *input_data);
+		bool init(const std::string& input_s);
+
 		void zero(void);
 		void resize(int w, int h);		
 
