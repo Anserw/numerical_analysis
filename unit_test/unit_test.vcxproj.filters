@@ -38,5 +38,8 @@
     <ClCompile Include="na_algorithm_UT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mat_UT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

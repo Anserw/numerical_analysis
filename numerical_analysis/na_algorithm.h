@@ -1,5 +1,6 @@
 #pragma once
 #include "Mat.h"
+#include "Vec.h"
 
 using namespace na;
 
@@ -8,7 +9,7 @@ enum enum_method{
 };
 
 
-bool solveLinearSimultaneousEquations(const Mat& A, Mat& x, const Mat& b, 
+bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, 
 	enum_method method=METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION);
 
-bool solveLSEwithSGE(const Mat& A, Mat& x, const Mat& b);
+bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b);

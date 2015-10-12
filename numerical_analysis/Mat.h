@@ -24,7 +24,7 @@ namespace na {
 		friend Mat operator +(const Mat& a, const Mat& b);
 		friend Mat operator -(const Mat& a, const Mat& b);
 		friend Mat operator *(const Mat& a, const Mat& b);
-		double operator [](int index) const;
+		double* operator [](int index);
 
 	public:
 		int width, height, items_sum;

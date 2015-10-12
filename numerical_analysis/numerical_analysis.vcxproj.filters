@@ -30,6 +30,9 @@
     <ClInclude Include="na_algorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="na_algorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -130,7 +130,7 @@ Mat operator*(const Mat& a, const Mat& b)
 	}
 }
 
-double Mat::operator [](int index) const
+double* Mat::operator [](int index)
 {
-	return data[index];
+	return data+index*width;
 }
