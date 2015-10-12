@@ -54,3 +54,50 @@ bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b)
 	}
 	return true;
 }
+
+bool solveLSEwithCMEGE(const Mat& A, Vec& x, const Vec& b)
+{
+	int n;
+	if (A.height != b.height) {
+		return false;
+	}
+	n = A.height;
+	Mat a(A);
+	Vec bb(b);
+	Vec b0(b);
+	double akk, mik, maxa, maxik;
+	for (int k = 0; k < n - 1; k++) {
+		maxa = -1;
+		for (int i = k; i < n; i++) {
+			if (a[i][k] > maxa) {
+				maxa = a[i][k];
+				maxik = i;
+			}
+		}
+		a.swapLine(k, maxik, k, n);
+		bb.swapLine(k, maxik);
+
+		akk = a[k][k];
+		if (akk == 0) {
+			return false;
+		}
+		for (int i = k + 1; i < n; i++) {
+			mik = a[i][k] / akk;
+			for (int j = k + 1; j < n; j++) {
+				a[i][j] -= mik*a[k][j];
+			}
+			bb[i] -= mik*bb[k];
+		}
+	}
+
+	x[n - 1] = b0[n - 1] / a[n - 1][n - 1];
+	double temp;
+	for (int k = n - 2; k >= 0; k--) {
+		temp = 0;
+		for (int j = k + 1; j < n; j++) {
+			temp += a[k][j] * x[j];
+		}
+		x[k] = (b0[k] - temp) / a[k][k];
+	}
+	return true;
+}

@@ -5,7 +5,11 @@
 using namespace na;
 
 enum enum_method{
-	METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION
+	//顺序高斯消去法
+	METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION,
+
+	//列主元素高斯消去法
+	METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION
 };
 
 
@@ -13,3 +17,5 @@ bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b,
 	enum_method method=METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION);
 
 bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b);
+
+bool solveLSEwithCMEGE(const Mat& A, Vec& x, const Vec& b);
