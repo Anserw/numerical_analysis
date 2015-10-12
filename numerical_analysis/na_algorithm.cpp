@@ -12,6 +12,9 @@ bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b,
 	case METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION:
 		return solveLSEwithSGE(A, x, b);
 		break;
+	case METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION:
+		return solveLSEwithCMEGE(A, x, b);
+		break;
 	default:
 		break;
 	}
