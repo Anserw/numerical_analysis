@@ -39,3 +39,13 @@ bool solveLinearSimultaneousEquations(
 	enum_method method=METHOD_DOOLITTLE
 );
 ```
+
+- 2015.10.13 新增了选主元的Doolittle分解法法解线性方程组的算法
+```
+bool solveLinearSimultaneousEquations(
+	const Mat& A, 
+	Vec& x, 
+	const Vec& b, 
+	enum_method method=METHOD_MAJOR_ELEMENT_DOOLITTLE
+);
+```

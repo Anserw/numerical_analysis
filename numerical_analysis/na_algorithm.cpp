@@ -16,6 +16,12 @@ namespace na{
 		case METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION:
 			return solveLSEwithCMEGE(A, x, b);
 			break;
+		case METHOD_DOOLITTLE:
+			return solveLSEwithDoolittle(A, x, b);
+			break;
+		case METHOD_MAJOR_ELEMENT_DOOLITTLE:
+			return solveLSEwithMEDoolittle(A, x, b);
+			break;
 		default:
 			break;
 		}
