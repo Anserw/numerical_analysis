@@ -44,24 +44,25 @@ bool Mat::init(double* input_data)
 
 bool Mat::init(const std::string& input_s)
 {
-	int count = 0, l;
+	int count = 0, l, p=1;
 	double curr, mul=1;
 	bool flag = false;
 	bool dot = false;
 	char ch;
-	l = input_s.length();
-	if (l > items_sum) {
-		l = items_sum;
-	}
+	l = input_s.length();	
 	for (int i = 0; i < l; i++) {
 		ch = input_s[i];
 		if (ch == ' ' || ch == ',' ) {
 			if (flag) {
-				data[count++] = curr;
+				data[count++] = curr*p;
+				if (count >= items_sum) {
+					return true;
+				}
 				curr = 0;		
 				flag = false;
 				dot = false;
 				mul = 1;
+				p = 1;
 			}
 		}else if (ch >= '0' && ch <= '9') {
 			if (flag) {
@@ -83,7 +84,9 @@ bool Mat::init(const std::string& input_s)
 			}else {
 				dot = true;
 			}
-		} else {
+		}else if (ch == '-') {
+			p = -1;
+		}else{
 			return false;
 		}
 	}
@@ -97,6 +100,27 @@ void Mat::zero(void)
 {
 	for (int i = 0; i < items_sum; i++) {
 		data[i] = 0;
+	}
+}
+
+void Mat::swapLine(int l1, int l2)
+{
+	swapLine(l1, l2, 0, width);
+}
+
+void Mat::swapLine(int l1, int l2, int startIndex, int endIndex)
+{
+	double temp;
+	if (startIndex < 0) {
+		startIndex = 0;
+	}
+	if (endIndex > width) {
+		endIndex = width;
+	}
+	for (int i = startIndex; i < endIndex; i++) {
+		temp = data[getIndex(l1, i)];
+		data[getIndex(l1, i)] = data[getIndex(l2, i)];
+		data[getIndex(l2, i)] = temp;
 	}
 }
 

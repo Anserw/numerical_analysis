@@ -15,6 +15,8 @@ namespace na {
 
 		void zero(void);
 		void resize(int w, int h);		
+		void swapLine(int l1, int l2);
+		void swapLine(int l1, int l2, int startIndex, int endIndex);
 
 		inline int getIndex(int x, int y) const;
 		static inline int getIndex(int x, int y, int a_width);
