@@ -13,5 +13,4 @@
 - 2015.10.12 新增了列主元素高斯消去法解线性方程组的算法<br>
 `bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, 
 	enum_method method=METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION);`
-- 2015.10.12 新增了Doolittle分解法法解线性方程组的算法<br>	
-`bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);`
+- 2015.10.12 新增了Doolittle分解法法解线性方程组的算法<br>`bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);`
