@@ -32,5 +32,10 @@ bool solveLinearSimultaneousEquations(
 	
 - 2015.10.12 新增了Doolittle分解法法解线性方程组的算法
 ```
-bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);
+bool solveLinearSimultaneousEquations(
+	const Mat& A, 
+	Vec& x, 
+	const Vec& b, 
+	enum_method method=METHOD_DOOLITTLE
+);
 ```
