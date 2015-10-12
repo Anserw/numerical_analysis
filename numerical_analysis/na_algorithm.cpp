@@ -73,8 +73,8 @@ namespace na{
 		for (int k = 0; k < n - 1; k++) {
 			maxa = -1;
 			for (int i = k; i < n; i++) {
-				if (a[i][k] > maxa) {
-					maxa = a[i][k];
+				if (abs(a[i][k]) > maxa) {
+					maxa = abs(a[i][k]);
 					maxik = i;
 				}
 			}
@@ -130,6 +130,73 @@ namespace na{
 				a[i][k] = (a[i][k] - temp) / a[k][k];
 			}
 		}
+		Vec y(n);
+		y[0] = b0[0];
+		for (int i = 1; i < n; i++) {
+			temp = 0;
+			for (int t = 0; t < i; t++) {
+				temp += a[i][t] * y[t];
+			}
+			y[i] = b0[i] - temp;
+		}
+		x[n - 1] = y[n - 1] / a[n - 1][n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			temp = 0;
+			for (int t = i + 1; t < n; t++) {
+				temp += a[i][t] * x[t];
+			}
+			x[i] = (y[i] - temp) / a[i][i];
+		}
+		return true;
+	}
+
+	bool solveLSEwithMEDoolittle(const Mat& A, Vec& x, const Vec& b)
+	{
+		Mat a(A);
+		Vec b0(b);
+		int n;
+		double temp;
+		n = a.width;
+		Vec s(n);
+		Vec M(n);		
+		double maxsi;
+		for (int k = 0; k < n; k++) {
+			maxsi = -1;
+			for (int i = k; i < n; i++) {
+				temp = 0;
+				for (int t = 0; t < k; t++) {
+					temp += a[i][t] * a[t][k];
+				}
+				s[i] = a[i][k] - temp;
+				if (abs(s[i]) > maxsi) {
+					maxsi = abs(s[i]);
+					M[k] = i;
+				}
+			}
+			if (M[k] != k) {
+				a.swapLine(k, M[k], 0, k - 1);
+				a.swapLine(k, M[k], k, n - 1);
+				s.swapLine(k, M[k]);
+			}
+			a[k][k] = s[k];
+			temp = 0;
+			for (int j = k + 1; j < n; j++) {
+				temp = 0;
+				for (int t = 0; t < k; t ++ ) {
+					temp += a[k][t] * a[t][j];
+				}
+				a[k][j] = a[k][j] - temp;
+			}
+			for (int i = k + 1; i < n; i++) {
+				a[i][k] = s[i] / a[k][k];
+			}						
+		}
+		
+		for (int k = 0; k < n - 1; k++) {
+			b0.swapLine(k, M[k]);
+		}
+		
+
 		Vec y(n);
 		y[0] = b0[0];
 		for (int i = 1; i < n; i++) {

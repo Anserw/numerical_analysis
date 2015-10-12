@@ -13,7 +13,10 @@ namespace na {
 		METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION,
 
 		//Doolittle分解法
-		METHOD_DOOLITTLE
+		METHOD_DOOLITTLE,
+
+		//选主元的Doolittle分解法
+		METHOD_MAJOR_ELEMENT_DOOLITTLE
 	};
 
 
@@ -25,4 +28,6 @@ namespace na {
 	bool solveLSEwithCMEGE(const Mat& A, Vec& x, const Vec& b);
 
 	bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);
+
+	bool solveLSEwithMEDoolittle(const Mat& A, Vec& x, const Vec& b);
 }
