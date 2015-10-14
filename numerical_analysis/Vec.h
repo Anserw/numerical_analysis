@@ -8,7 +8,10 @@ namespace na {
 	public:
 		Vec();
 		Vec(int l);
+		Vec(Mat a);
 		~Vec();
+
+		void resize(int l);
 
 		double& operator [](int index);
 

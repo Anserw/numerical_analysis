@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <string>
 
@@ -26,9 +27,9 @@ namespace na {
 		double getItem(int x, int y) const;
 		void setItem(int x, int y, double val);
 
-		friend Mat operator +(const Mat& a, const Mat& b);
-		friend Mat operator -(const Mat& a, const Mat& b);
-		friend Mat operator *(const Mat& a, const Mat& b);
+		friend Mat operator+(const Mat& a, const Mat& b);
+		friend Mat operator-(const Mat& a, const Mat& b);
+		friend Mat operator*(const Mat& a, const Mat& b);
 		double* operator [](int index);
 
 	public:
@@ -38,7 +39,7 @@ namespace na {
 		
 		
 	};
-
+	
 }
 
 

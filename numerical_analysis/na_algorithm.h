@@ -16,7 +16,10 @@ namespace na {
 		METHOD_DOOLITTLE,
 
 		//选主元的Doolittle分解法
-		METHOD_MAJOR_ELEMENT_DOOLITTLE
+		METHOD_MAJOR_ELEMENT_DOOLITTLE,
+
+		//三角分解法
+		METHOD_TRIANGULAR_DECOMPOSITION		
 	};
 
 
@@ -30,4 +33,16 @@ namespace na {
 	bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);
 
 	bool solveLSEwithMEDoolittle(const Mat& A, Vec& x, const Vec& b);
+
+	bool solveBandLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, int s, int r);
+
+
+
+	template<class T>inline T max(T a, T b);
+
+	template<class T>inline T max(T a, T b, T c);
+
+	template<class T>inline T min(T a, T b);
+
+	template<class T>inline T min(T a, T b, T c);
 }

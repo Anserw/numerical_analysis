@@ -6,7 +6,7 @@ namespace na{
 		enum_method method)
 	{
 		if (x.width != 1 || x.height != A.width) {
-			x.resize(1, A.width);
+			x.resize(A.width);
 		}
 		switch (method)
 		{
@@ -221,6 +221,78 @@ namespace na{
 			x[i] = (y[i] - temp) / a[i][i];
 		}
 		return true;
+	}
+
+	bool solveBandLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, int s, int r)
+	{
+		Mat a(A);
+		Vec b0(b);
+		int n;
+		double temp;
+		n = a.width;
+		for (int k = 0; k < n; k++) {
+			for (int j = k; j < min(k+s+1, n); j++) {
+				temp = 0;
+				for (int t = max(0, k-r, j-s); t < k; t++) {
+					temp += a[k][t] * a[t][j];
+				}
+				a[k][j] -= temp;
+			}
+
+			for (int i = k + 1; i < min(k+r+1, n); i++) {
+				temp = 0;
+				for (int t = max(0, i-r, k-s); t < k; t++) {
+					temp += a[i][t] * a[t][k];
+				}
+				a[i][k] = (a[i][k] - temp) / a[k][k];
+			}
+		}
+		Vec y(n);
+		y[0] = b0[0];
+		for (int i = 1; i < n; i++) {
+			temp = 0;
+			for (int t = max(0, i-r); t < i; t++) {
+				temp += a[i][t] * y[t];
+			}
+			y[i] = b0[i] - temp;
+		}
+		x[n - 1] = y[n - 1] / a[n - 1][n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			temp = 0;
+			for (int t = i + 1; t < min(i+s+1, n); t++) {
+				temp += a[i][t] * x[t];
+			}
+			x[i] = (y[i] - temp) / a[i][i];
+		}
+		return true;
+	}
+
+	template<class T>T max(T a, T b)
+	{
+		if (a < b) {
+			return b;
+		}else{
+			return a;
+		}
+	}
+
+	template<class T>T max(T a, T b, T c)
+	{
+		return max(max(a, b), c);
+	}
+
+	template<class T>T min(T a, T b)
+	{
+		if (a < b) {
+			return a;
+		}else{
+			return b;
+		}
+	}
+
+	template<class T>T min(T a, T b, T c)
+	{
+		return min(min(a, b), c);
 	}
 }
 
