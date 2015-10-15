@@ -12,6 +12,17 @@ namespace na{
 		data = NULL;
 	}
 
+	Mat::Mat(const Mat& a)
+	{
+		width = a.width;
+		height = a.height;
+		items_sum = a.items_sum;
+		data = new double[items_sum];
+		for (int i = 0; i < items_sum; i++) {
+			data[i] = a.data[i];
+		}
+	}
+
 	Mat::Mat(int w, int h)
 	{
 		width = w;

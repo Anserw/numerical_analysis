@@ -6,7 +6,7 @@ namespace na {
 	{
 	}
 
-	Vec::Vec(int l)
+	Vec::Vec(const int l)
 	{
 		width = 1;
 		height = l;
@@ -15,7 +15,19 @@ namespace na {
 		data = new double[items_sum];
 	}
 
-	Vec::Vec(Mat a)
+	Vec::Vec(const Vec& a)
+	{
+		width = 1;
+		height = a.height;
+		items_sum = height;
+		length = a.length;
+		data = new double[items_sum];
+		for (int i = 0; i < length; i++) {
+			data[i] = a.data[i];
+		}
+	}
+
+	Vec::Vec(const Mat& a)
 	{
 		width = 1;
 		height = a.height;

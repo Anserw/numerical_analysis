@@ -7,8 +7,9 @@ namespace na {
 	{
 	public:
 		Vec();
-		Vec(int l);
-		Vec(Mat a);
+		Vec(const int l);
+		Vec(const Vec& a);
+		Vec(const Mat& a);
 		~Vec();
 
 		void resize(int l);

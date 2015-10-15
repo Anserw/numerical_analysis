@@ -8,6 +8,7 @@ namespace na {
 	{
 	public:
 		Mat();
+		Mat(const Mat& a);
 		Mat(int w, int h);
 		~Mat();
 
