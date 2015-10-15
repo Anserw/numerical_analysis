@@ -110,7 +110,7 @@ namespace na{
 			}
 		}
 		if (flag) {
-			data[count++] = curr;
+			data[count++] = curr*p;
 		}
 		return true;
 	}
@@ -244,7 +244,29 @@ namespace na{
 
 
 
-	// 餘因子矩陣
+	
+	double Mat::det()
+	{
+		if (width != height) {
+			std::cout << "Error occured during compute det!" << std::endl;
+		}
+		return det(0, 0, width);
+	}
+
+	double MDET(double **a, unsigned dim);
+	double Mat::det(int x, int y, int dim)
+	{
+		double ret;
+		double **a = (double**)malloc(sizeof(double*)*dim);
+		for (int i = 0; i < dim; i++) {
+			a[i] = data + (y + i)*width + x;
+		}
+		ret = MDET(a, dim);
+		free(a);
+		return ret;
+	}
+
+	// 除因子矩阵
 	void MCOF(double **a,
 		double **cof_ij,
 		unsigned row,
@@ -266,7 +288,7 @@ namespace na{
 	}
 
 	// ==============================
-	// 求2階矩陣 determinte
+	// 求2阶矩阵 determinte
 	double MDET2(double **a)
 	{
 		return (a[0][0] * a[1][1] - a[0][1] * a[1][0]);
@@ -274,7 +296,7 @@ namespace na{
 
 
 	// ==============================
-	// 求3階矩陣 determinte
+	// 求3阶矩阵 determinte
 	double MDET3(double **a)
 	{
 		double x = 0.0, y = 0.0, z = 0.0;
@@ -285,7 +307,7 @@ namespace na{
 	}
 
 	// ==============================
-	// 求矩陣 determinte
+	// 求矩阵 determinte
 	double MDET(double **a,
 		unsigned dim)
 	{
@@ -310,23 +332,32 @@ namespace na{
 		free(b);
 		return sum;
 	}
-	double Mat::det()
+
+	MatBandCompreesed::MatBandCompreesed(const Mat& a, int a_s, int a_r)
 	{
-		if (width != height) {
-			std::cout << "Error occured during compute det!" << std::endl;
-		}
-		return det(0, 0, width);
+		width = a.width;
+		height = a.height;
+		items_sum = a.items_sum;
+
+		r = a_r;
+		s = a_s;
+		n = width;
+		m = r + s + 1;
+
+		data = new double[m*n];
+		int t;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				t = i - j + s + 1;
+				if ( t >= 0 && t < m) {
+					data[t*n + j] = a.getItem(i, j);
+				}
+			}
+		}		
 	}
 
-	double Mat::det(int x, int y, int dim)
+	int MatBandCompreesed::getIndex(int x, int y) const
 	{
-		double ret;
-		double **a = (double**)malloc(sizeof(double*)*dim);
-		for (int i = 0; i < dim; i++) {
-			a[i] = data + (y + i)*width + x;
-		}
-		ret = MDET(a, dim);
-		free(a);
-		return ret;
+		return (x - y + s)*width + y;
 	}
 }

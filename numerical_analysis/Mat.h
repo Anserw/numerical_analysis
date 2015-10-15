@@ -44,6 +44,19 @@ namespace na {
 		
 		
 	};
+
+	class MatBandCompreesed :
+		public Mat
+	{
+	public:
+		MatBandCompreesed();
+		MatBandCompreesed(const Mat& a, int s, int r);
+
+		inline int getIndex(int x, int y) const;
+
+	public:
+		int m, n, r, s;
+	};
 	
 }
 

@@ -75,7 +75,8 @@ namespace na{
 		Mat a(A);
 		Vec bb(b);
 		Vec b0(b);
-		double akk, mik, maxa, maxik;
+		double akk, mik, maxa;
+		int maxik;
 		for (int k = 0; k < n - 1; k++) {
 			maxa = -1;
 			for (int i = k; i < n; i++) {
@@ -119,6 +120,14 @@ namespace na{
 		int n;
 		double temp;
 		n = a.width;
+		for (int i = 1; i < n; i++) {
+			if (a.det(0, 0, i) != 0) {
+				std::cout << "Error: Doolittle doesn't work!" << std::endl;
+				return false;
+			}
+		}
+
+
 		for (int k = 0; k < n; k++) {
 			for (int j = k; j < n; j++) {
 				temp = 0;
@@ -136,6 +145,7 @@ namespace na{
 				a[i][k] = (a[i][k] - temp) / a[k][k];
 			}
 		}
+
 		Vec y(n);
 		y[0] = b0[0];
 		for (int i = 1; i < n; i++) {
@@ -153,6 +163,7 @@ namespace na{
 			}
 			x[i] = (y[i] - temp) / a[i][i];
 		}
+
 		return true;
 	}
 
@@ -198,10 +209,12 @@ namespace na{
 			}						
 		}
 		
+		a.print();
+
 		for (int k = 0; k < n - 1; k++) {
 			b0.swapLine(k, M[k]);
 		}
-		
+			
 
 		Vec y(n);
 		y[0] = b0[0];
@@ -230,6 +243,12 @@ namespace na{
 		int n;
 		double temp;
 		n = a.width;
+		for (int i = 1; i < n; i++) {
+			if (a.det(0, 0, i) != 0) {
+				std::cout << "Error: This doesn't work!" << std::endl;
+				return false;
+			}
+		}
 		for (int k = 0; k < n; k++) {
 			for (int j = k; j < min(k+s+1, n); j++) {
 				temp = 0;
