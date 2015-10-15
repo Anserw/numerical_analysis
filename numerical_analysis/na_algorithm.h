@@ -36,7 +36,7 @@ namespace na {
 
 	bool solveBandLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, int s, int r);
 
-
+	bool solve3BLSEwithSpeedupMethod(const Mat& A, Vec& x, const Vec& b);
 
 	template<class T>inline T max(T a, T b);
 

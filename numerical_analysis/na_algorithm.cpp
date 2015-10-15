@@ -206,8 +206,6 @@ namespace na{
 				a[i][k] = s[i] / a[k][k];
 			}						
 		}
-		
-		a.print();
 
 		for (int k = 0; k < n - 1; k++) {
 			b0.swapLine(k, M[k]);
@@ -280,6 +278,33 @@ namespace na{
 				temp += a[i][t] * x[t];
 			}
 			x[i] = (y[i] - temp) / a[i][i];
+		}
+		return true;
+	}
+
+	bool solve3BLSEwithSpeedupMethod(const Mat& A, Vec& x, const Vec& b)
+	{
+		Mat a(A);
+		Vec b0(b);
+		int n;
+		double temp;
+		n = a.width;
+		Vec p(n);
+		Vec q(n);
+		p[0] = a[0][0];
+		for (int i = 0; i < n - 1; i++){
+			q[i] = a[i][i + 1] / p[i];
+			p[i + 1] = a[i + 1][i + 1] - a[i + 1][i] * q[i];
+		}
+
+		Vec y(n);
+		y[0] = b0[0] / p[0];
+		for (int i = 1; i < n; i++) {
+			y[i] = (b0[i] - a[i][i - 1] * y[i-1]) / p[i];
+		}
+		x[n - 1] = y[n - 1];
+		for (int i = n - 2; i >= 0; i--) {
+			x[i] = y[i] - q[i] * x[i + 1];
 		}
 		return true;
 	}

@@ -143,3 +143,18 @@ TEST(solveBandLinearSimultaneousEquations, 5x5problem1)
 	EXPECT_NEAR(0.8, x[3], 0.0005);
 	EXPECT_NEAR(0.3, x[4], 0.0005);
 }
+
+TEST(solve3BLSEwithSpeedupMethod, 5x5problem1)
+{
+	Mat A(5, 5);
+	Vec b(5);
+	Vec x(5);
+	A.init("4 1 0 0 0 1 4 1 0 0 0 1 4 1 0 0 0 1 4 1 0 0 0 1 4");
+	b.init("1 0.5 -1 3 2");
+	EXPECT_TRUE(solve3BLSEwithSpeedupMethod(A, x, b));
+	EXPECT_NEAR(0.2, x[0], 0.0005);
+	EXPECT_NEAR(0.2, x[1], 0.0005);
+	EXPECT_NEAR(-0.5, x[2], 0.0005);
+	EXPECT_NEAR(0.8, x[3], 0.0005);
+	EXPECT_NEAR(0.3, x[4], 0.0005);
+}
