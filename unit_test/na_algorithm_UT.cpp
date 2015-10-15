@@ -64,6 +64,41 @@ TEST(solveLinearSimultaneousEquationsTest, solve3x3problemWithSequentialGaussian
 	EXPECT_NEAR(5.546, x[2], 0.0005);
 }
 
+TEST(solveLinearSimultaneousEquationsTest, solve4x4problemWithAllMethods)
+{	
+	Mat A(4, 4);
+	Vec b(4);
+	Vec x(4);
+	A.init("8.3 2.1 -1.2 0.5 0.8 10.2 3.5 -1.8 1.2 0.2 -4 -0.5 -0.2 0.3 0.4 -2");
+	b.init("-3.02 4.79 -6.72 8.89");
+	EXPECT_TRUE(solveLinearSimultaneousEquations(A, x, b, METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION));
+	EXPECT_NEAR(0.5, x[0], 0.005);
+	EXPECT_NEAR(-1.1, x[1], 0.005);
+	EXPECT_NEAR(2.3, x[2], 0.0005);
+	EXPECT_NEAR(-4.2, x[3], 0.0005);
+
+	x.zero();
+	EXPECT_TRUE(solveLinearSimultaneousEquations(A, x, b, METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION));
+	EXPECT_NEAR(0.5, x[0], 0.005);
+	EXPECT_NEAR(-1.1, x[1], 0.005);
+	EXPECT_NEAR(2.3, x[2], 0.0005);
+	EXPECT_NEAR(-4.2, x[3], 0.0005);
+
+	x.zero();
+	EXPECT_TRUE(solveLinearSimultaneousEquations(A, x, b, METHOD_DOOLITTLE));
+	EXPECT_NEAR(0.5, x[0], 0.005);
+	EXPECT_NEAR(-1.1, x[1], 0.005);
+	EXPECT_NEAR(2.3, x[2], 0.0005);
+	EXPECT_NEAR(-4.2, x[3], 0.0005);
+
+	x.zero();
+	EXPECT_TRUE(solveLinearSimultaneousEquations(A, x, b, METHOD_MAJOR_ELEMENT_DOOLITTLE));
+	EXPECT_NEAR(0.5, x[0], 0.005);
+	EXPECT_NEAR(-1.1, x[1], 0.005);
+	EXPECT_NEAR(2.3, x[2], 0.0005);
+	EXPECT_NEAR(-4.2, x[3], 0.0005);
+}
+
 TEST(solveLSEwithDoolitlle, solve3x3problem)
 {
 	Mat A(3, 3);
@@ -92,4 +127,19 @@ TEST(solveLSEwithMEDoolitlle, solve3x3problem)
 	EXPECT_NEAR(0.8409, x[0], 0.0005);
 	EXPECT_NEAR(-0.2997, x[1], 0.0005);
 	EXPECT_NEAR(0.01415, x[2], 0.0005);
+}
+
+TEST(solveBandLinearSimultaneousEquations, 5x5problem1)
+{
+	Mat A(5, 5);
+	Vec b(5);
+	Vec x(5);
+	A.init("4 1 0 0 0 1 4 1 0 0 0 1 4 1 0 0 0 1 4 1 0 0 0 1 4");
+	b.init("1 0.5 -1 3 2");
+	EXPECT_TRUE(solveBandLinearSimultaneousEquations(A, x, b, 1, 1));
+	EXPECT_NEAR(0.2, x[0], 0.0005);
+	EXPECT_NEAR(0.2, x[1], 0.0005);
+	EXPECT_NEAR(-0.5, x[2], 0.0005);
+	EXPECT_NEAR(0.8, x[3], 0.0005);
+	EXPECT_NEAR(0.3, x[4], 0.0005);
 }
