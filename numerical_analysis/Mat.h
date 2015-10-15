@@ -27,6 +27,10 @@ namespace na {
 		double getItem(int x, int y) const;
 		void setItem(int x, int y, double val);
 
+		double det();
+		double det(int x, int y, int dim);
+		void print();
+
 		friend Mat operator+(const Mat& a, const Mat& b);
 		friend Mat operator-(const Mat& a, const Mat& b);
 		friend Mat operator*(const Mat& a, const Mat& b);

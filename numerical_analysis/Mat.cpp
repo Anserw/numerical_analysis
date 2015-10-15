@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Mat.h"
+#include <iomanip>
 
 namespace na{
 
@@ -161,6 +162,18 @@ namespace na{
 		data[getIndex(x, y)] = val;
 	}
 
+	void Mat::print()
+	{
+		std::setprecision(3);
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				std::cout << std::setw(8) << data[getIndex(i, j)] << ' ';
+			}
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+	}
+
 	Mat operator+(const Mat& a, const Mat& b)
 	{
 		if (a.width != b.width || a.height != b.height) {
@@ -216,5 +229,93 @@ namespace na{
 	double* Mat::operator [](int index)
 	{
 		return data + index*width;
+	}
+
+
+
+	// 餘因子矩陣
+	void MCOF(double **a,
+		double **cof_ij,
+		unsigned row,
+		unsigned col,
+		unsigned dim_a)
+	{
+		unsigned i = 0, j = 0;
+		unsigned ii = 0, jj = 0;
+		for (i = 0; i<dim_a; i++){
+			if (i == row) continue;
+			for (j = 0; j<dim_a; j++){
+				if (j == col) continue;
+				cof_ij[ii][jj] = a[i][j];
+				jj++;
+			}
+			ii++;
+			jj = 0;
+		}
+	}
+
+	// ==============================
+	// 求2階矩陣 determinte
+	double MDET2(double **a)
+	{
+		return (a[0][0] * a[1][1] - a[0][1] * a[1][0]);
+	}
+
+
+	// ==============================
+	// 求3階矩陣 determinte
+	double MDET3(double **a)
+	{
+		double x = 0.0, y = 0.0, z = 0.0;
+		x = a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]);
+		y = a[1][0] * (a[0][1] * a[2][2] - a[0][2] * a[2][1]);
+		z = a[2][0] * (a[0][1] * a[1][2] - a[0][2] * a[1][1]);
+		return (x - y + z);
+	}
+
+	// ==============================
+	// 求矩陣 determinte
+	double MDET(double **a,
+		unsigned dim)
+	{
+		unsigned i;
+		double x = 0.0;
+		double sum = 0.0;
+
+		double **b = (double**)malloc(sizeof(double*)*dim);
+		for (i = 0; i<dim; i++) b[i] = (double*)malloc(sizeof(double)*dim);
+
+		if (dim == 1) return a[0][0];
+		if (dim == 2) return MDET2(a);
+		if (dim == 3) return MDET3(a);
+		for (i = 0; i<dim; i++)
+		{
+			MCOF(a, b, 0, i, dim);
+			if (i % 2 == 0) x = 1.0;
+			else x = -1.0;
+			sum += a[0][i] * MDET(b, dim - 1) * x;
+		}
+		for (i = 0; i<dim; i++) free(b[i]);
+		free(b);
+		return sum;
+	}
+	double Mat::det()
+	{
+		if (width != height) {
+			std::cout << "Error occured during compute det!" << std::endl;
+		}
+		return det(0, 0, width);
+	}
+
+	double Mat::det(int x, int y, int dim)
+	{
+		double ret;
+		double **a = (double**)malloc(sizeof(double*)*dim);
+		for (int i = 0; i < dim; i++) {
+			a[i] = data + (y + i)*width + x;
+		}
+		ret = MDET(a, dim);
+		free(a);
+		return ret;
 	}
 }
