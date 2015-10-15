@@ -60,3 +60,12 @@ bool solveBandLinearSimultaneousEquations(
 	int r
 );
 ```
+
+- 2015.10.15 新增了追赶法求解三对角线性方程组的算法
+```
+bool solve3BLSEwithSpeedupMethod(
+	const Mat& A, 
+	Vec& x, 
+	const Vec& b
+);
+```
