@@ -49,3 +49,14 @@ bool solveLinearSimultaneousEquations(
 	enum_method method=METHOD_MAJOR_ELEMENT_DOOLITTLE
 );
 ```
+
+- 2015.10.15 新增了三角分解法解带状线形方程组的算法
+```
+bool solveBandLinearSimultaneousEquations(
+	const Mat& A, 
+	Vec& x, 
+	const Vec& b, 
+	int s, 
+	int r
+);
+```
