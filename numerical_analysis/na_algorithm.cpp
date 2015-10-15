@@ -36,8 +36,7 @@ namespace na{
 		}
 		n = A.height;
 		Mat a(A);
-		Vec bb(b);
-		Vec b0(b);
+		Vec bb(b);		
 		double akk, mik;
 		for (int k = 0; k < n - 1; k++) {
 			akk = a[k][k];
@@ -53,14 +52,14 @@ namespace na{
 			}
 		}
 
-		x[n - 1] = b0[n - 1] / a[n - 1][n - 1];
+		x[n - 1] = bb[n - 1] / a[n - 1][n - 1];
 		double temp;
 		for (int k = n - 2; k >= 0; k--) {
 			temp = 0;
 			for (int j = k + 1; j < n; j++) {
 				temp += a[k][j] * x[j];
 			}
-			x[k] = (b0[k] - temp) / a[k][k];
+			x[k] = (bb[k] - temp) / a[k][k];
 		}
 		return true;
 	}
@@ -73,8 +72,7 @@ namespace na{
 		}
 		n = A.height;
 		Mat a(A);
-		Vec bb(b);
-		Vec b0(b);
+		Vec bb(b);		
 		double akk, mik, maxa;
 		int maxik;
 		for (int k = 0; k < n - 1; k++) {
@@ -101,14 +99,14 @@ namespace na{
 			}
 		}
 
-		x[n - 1] = b0[n - 1] / a[n - 1][n - 1];
+		x[n - 1] = bb[n - 1] / a[n - 1][n - 1];
 		double temp;
 		for (int k = n - 2; k >= 0; k--) {
 			temp = 0;
 			for (int j = k + 1; j < n; j++) {
 				temp += a[k][j] * x[j];
 			}
-			x[k] = (b0[k] - temp) / a[k][k];
+			x[k] = (bb[k] - temp) / a[k][k];
 		}
 		return true;
 	}
@@ -121,7 +119,7 @@ namespace na{
 		double temp;
 		n = a.width;
 		for (int i = 1; i < n; i++) {
-			if (a.det(0, 0, i) != 0) {
+			if (a.det(0, 0, i) == 0) {
 				std::cout << "Error: Doolittle doesn't work!" << std::endl;
 				return false;
 			}
@@ -244,7 +242,7 @@ namespace na{
 		double temp;
 		n = a.width;
 		for (int i = 1; i < n; i++) {
-			if (a.det(0, 0, i) != 0) {
+			if (a.det(0, 0, i) == 0) {
 				std::cout << "Error: This doesn't work!" << std::endl;
 				return false;
 			}
