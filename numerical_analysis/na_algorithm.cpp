@@ -11,17 +11,15 @@ namespace na{
 		switch (method)
 		{
 		case METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION:
-			return solveLSEwithSGE(A, x, b);
-			break;
+			return solveLSEwithSGE(A, x, b);			
 		case METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION:
-			return solveLSEwithCMEGE(A, x, b);
-			break;
+			return solveLSEwithCMEGE(A, x, b);			
 		case METHOD_DOOLITTLE:
-			return solveLSEwithDoolittle(A, x, b);
-			break;
+			return solveLSEwithDoolittle(A, x, b);			
 		case METHOD_MAJOR_ELEMENT_DOOLITTLE:
-			return solveLSEwithMEDoolittle(A, x, b);
-			break;
+			return solveLSEwithMEDoolittle(A, x, b);			
+		case METHOD_JACOBI_ITERATION:
+			return solveLSEwithJacobiIteration(A, x, b);			
 		default:
 			break;
 		}
@@ -232,6 +230,34 @@ namespace na{
 		return true;
 	}
 
+	bool solveLSEwithJacobiIteration(const Mat& A, Vec& x, const Vec& b)
+	{
+		Mat  a(A);
+		Vec b0(b);		
+		int n = a.width;
+		Vec xk(n);
+		double temp;
+		x.zero();
+		xk.zero();
+		int k = 0;
+		while (1) {
+			for (int i = 0; i < n; i++) {
+				temp = 0;
+				for (int j = 0; j < n; j++){
+					if (i != j) {
+						temp += a[i][j] * xk[j];
+					}					
+				}
+				x[i] = (-temp + b0[i]) / a[i][i];
+			}
+			xk = x;
+			if (k++ > (n+1)*(n+1)) {
+				break;
+			}
+		}
+		return true;
+	}
+
 	bool solveBandLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, int s, int r)
 	{
 		Mat a(A);
@@ -287,7 +313,6 @@ namespace na{
 		Mat a(A);
 		Vec b0(b);
 		int n;
-		double temp;
 		n = a.width;
 		Vec p(n);
 		Vec q(n);

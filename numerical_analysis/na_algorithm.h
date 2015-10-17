@@ -19,7 +19,10 @@ namespace na {
 		METHOD_MAJOR_ELEMENT_DOOLITTLE,
 
 		//三角分解法
-		METHOD_TRIANGULAR_DECOMPOSITION		
+		METHOD_TRIANGULAR_DECOMPOSITION,
+
+		//Jacobi迭代法
+		METHOD_JACOBI_ITERATION
 	};
 
 
@@ -33,6 +36,8 @@ namespace na {
 	bool solveLSEwithDoolittle(const Mat& A, Vec& x, const Vec& b);
 
 	bool solveLSEwithMEDoolittle(const Mat& A, Vec& x, const Vec& b);
+
+	bool solveLSEwithJacobiIteration(const Mat& A, Vec& x, const Vec& b);
 
 	bool solveBandLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b, int s, int r);
 
