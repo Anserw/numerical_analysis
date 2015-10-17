@@ -2,6 +2,13 @@
 
 本项目中的公式参考自*数值分析, 颜庆津, 北京航空航天大学出版社*
 
+##TODO
+
+- 求矩阵的逆
+- 求矩阵的转置
+- 求矩阵的特征值、特征向量
+- Jacobi迭代法中迭代终止的条件仍需完善
+
 ##日志
 
 - 2015.10.11 新增Mat类， 完成了一些基本的矩阵操作
@@ -64,6 +71,15 @@ bool solveBandLinearSimultaneousEquations(
 - 2015.10.15 新增了追赶法求解三对角线性方程组的算法
 ```
 bool solve3BLSEwithSpeedupMethod(
+	const Mat& A, 
+	Vec& x, 
+	const Vec& b
+);
+```
+
+- 2015.10.17 新增了Jacobi迭代法求解三对角线性方程组的算法
+```
+bool solveLSEwithJacobiIteration(
 	const Mat& A, 
 	Vec& x, 
 	const Vec& b
