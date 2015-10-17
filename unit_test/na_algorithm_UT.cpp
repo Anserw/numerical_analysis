@@ -97,6 +97,13 @@ TEST(solveLinearSimultaneousEquationsTest, solve4x4problemWithAllMethods)
 	EXPECT_NEAR(-1.1, x[1], 0.005);
 	EXPECT_NEAR(2.3, x[2], 0.0005);
 	EXPECT_NEAR(-4.2, x[3], 0.0005);
+
+	x.zero();
+	EXPECT_TRUE(solveLinearSimultaneousEquations(A, x, b, METHOD_JACOBI_ITERATION));
+	EXPECT_NEAR(0.5, x[0], 0.005);
+	EXPECT_NEAR(-1.1, x[1], 0.005);
+	EXPECT_NEAR(2.3, x[2], 0.0005);
+	EXPECT_NEAR(-4.2, x[3], 0.0005);
 }
 
 TEST(solveLSEwithDoolitlle, solve3x3problem)
@@ -157,4 +164,17 @@ TEST(solve3BLSEwithSpeedupMethod, 5x5problem1)
 	EXPECT_NEAR(-0.5, x[2], 0.0005);
 	EXPECT_NEAR(0.8, x[3], 0.0005);
 	EXPECT_NEAR(0.3, x[4], 0.0005);
+}
+
+TEST(solveLSEwithJacobiIteration, 3x3problem)
+{
+	Mat A(3, 3);
+	Vec b(3);
+	Vec x(3);
+	A.init("10 -2 -2 -2 10 -1 -1 -2 3");
+	b.init("1 0.5 1");
+	EXPECT_TRUE(solveLSEwithJacobiIteration(A, x, b));
+	EXPECT_NEAR(0.231, x[0], 0.0005);
+	EXPECT_NEAR(0.147, x[1], 0.0005);
+	EXPECT_NEAR(0.508, x[2], 0.0005);
 }

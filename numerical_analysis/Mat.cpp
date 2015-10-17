@@ -307,6 +307,19 @@ namespace na{
 		return ret;
 	}
 
+	double Mat::normF()
+	{
+		double ret=0, temp;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				temp = getItem(i, j);
+				ret += temp*temp;
+			}
+		}
+		ret = sqrt(ret);
+		return ret;
+	}
+
 
 	// ³ýÒò×Ó¾ØÕó
 	void MCOF(double **a,

@@ -33,6 +33,8 @@ namespace na {
 		double norm1();
 		double norm2();
 		double normi();
+		double normF();
+
 		void print();
 
 		friend Mat operator+(const Mat& a, const Mat& b);

@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 #include "../numerical_analysis/Mat.h"
 #include "../numerical_analysis/Vec.h"
+#include "math.h"
 
 using namespace na;
 
@@ -32,6 +33,15 @@ TEST(MatTest, func_input)
 	
 }
 
+TEST(MatTest, func_norm)
+{
+	Mat a(3, 3);
+	EXPECT_TRUE(a.init("2 -5 4 -1 0 3 4 2 -2"));
+	EXPECT_DOUBLE_EQ(9, a.norm1());
+	EXPECT_DOUBLE_EQ(11, a.normi());
+	EXPECT_DOUBLE_EQ(sqrt(79), a.normF());
+}
+
 TEST(VecTest, operatorBrace)
 {
 	double l_vec[3] = { 1, 2, 3 };
@@ -41,4 +51,13 @@ TEST(VecTest, operatorBrace)
 	EXPECT_EQ(2, a[1]);
 	EXPECT_EQ(3, a[2]);
 
+}
+
+TEST(VecTest, func_norm)
+{
+	Vec x(3);
+	x.init("4 -8 2");
+	EXPECT_DOUBLE_EQ(14, x.norm1());
+	EXPECT_DOUBLE_EQ(2 * sqrt(21), x.norm2());
+	EXPECT_DOUBLE_EQ(8, x.normi());
 }
