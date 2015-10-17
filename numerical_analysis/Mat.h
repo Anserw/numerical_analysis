@@ -30,6 +30,9 @@ namespace na {
 
 		double det();
 		double det(int x, int y, int dim);
+		double norm1();
+		double norm2();
+		double normi();
 		void print();
 
 		friend Mat operator+(const Mat& a, const Mat& b);

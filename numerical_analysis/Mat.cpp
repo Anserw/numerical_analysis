@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Mat.h"
 #include <iomanip>
+#include "math.h"
 
 namespace na{
 
@@ -265,6 +266,47 @@ namespace na{
 		free(a);
 		return ret;
 	}
+
+	double Mat::norm1()
+	{
+		double ret = -1, temp;
+		int n;
+		n = height;
+		for (int j = 0; j < n; j++) {
+			temp = 0;
+			for (int i = 0; i < n; i++) {
+				temp += abs(getItem(i, j));
+			}
+			if (temp > ret) {
+				ret = temp;
+			}
+		}
+		return ret;
+	}
+
+	double Mat::norm2()
+	{
+		//TODO
+		return 0;
+	}
+
+	double Mat::normi()
+	{
+		double ret = -1, temp;
+		int n;
+		n = height;
+		for (int i = 0; i < n; i++) {
+			temp = 0;
+			for (int j = 0; j < n; j++) {
+				temp += abs(getItem(i, j));
+			}
+			if (temp > ret) {
+				ret = temp;
+			}
+		}
+		return ret;
+	}
+
 
 	// ³ıÒò×Ó¾ØÕó
 	void MCOF(double **a,

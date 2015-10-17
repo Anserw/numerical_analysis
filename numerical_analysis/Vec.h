@@ -14,6 +14,10 @@ namespace na {
 
 		void resize(int l);
 
+		double norm1();
+		double norm2();
+		double normi();
+
 		double& operator [](int index);
 
 	public:
