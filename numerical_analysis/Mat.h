@@ -17,6 +17,7 @@ namespace na {
 
 		void zero(void);
 		void resize(int w, int h);		
+		void T();
 		void swapLine(int l1, int l2);
 		void swapLine(int l1, int l2, int startIndex, int endIndex);
 
@@ -35,11 +36,14 @@ namespace na {
 		double normi();
 		double normF();
 
+		
+
 		void print();
 
 		friend Mat operator+(const Mat& a, const Mat& b);
 		friend Mat operator-(const Mat& a, const Mat& b);
 		friend Mat operator*(const Mat& a, const Mat& b);
+		friend Mat operator/(const Mat& a, const double& b);
 		double* operator [](int index);
 
 	public:
@@ -63,6 +67,8 @@ namespace na {
 		int m, n, r, s;
 	};
 	
+
+	//static double eigenValueMax(const Mat& a, const double accurate = 0.0001);
 }
 
 

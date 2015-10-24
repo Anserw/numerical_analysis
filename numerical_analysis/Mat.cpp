@@ -41,6 +41,24 @@ namespace na{
 		data = new double[items_sum];
 	}
 
+	void Mat::T()
+	{
+		double temp;
+		int a, b;
+		for (int i = 0; i < height; i++){
+			for (int j = 0; j < width; j++){
+				a = getIndex(i, j, width);
+				b = getIndex(j, i, height);
+				temp = data[a];
+				data[a] = data[b];
+				data[b] = temp;
+			}
+		}
+		temp = width;
+		width = height;
+		height = temp;
+	}
+
 	Mat::~Mat()
 	{
 	}
@@ -238,6 +256,15 @@ namespace na{
 		}
 	}
 
+	Mat operator/(const Mat& a, const double& b)
+	{
+		Mat ret(a);
+		for (int i = 0; i < ret.items_sum; i++) {
+			ret.data[i] /= b;
+		}
+		return ret;
+	}
+
 	double* Mat::operator [](int index)
 	{
 		return data + index*width;
@@ -319,6 +346,36 @@ namespace na{
 		ret = sqrt(ret);
 		return ret;
 	}
+
+	//double eigenValueMax(const Mat a, double accurate)
+	//{
+	//	double nk_1;
+	//	int width;
+	//	width = a.width;
+	//	Vec u(width);
+	//	for (int i = 0; i < width; i++){
+	//		u[i] = 1;
+	//	}
+	//	Vec ut(u);
+	//	ut.T();
+	//	Mat u2;
+	//	Vec y;
+	//	double b, b1;
+	//	for (int k = 1;; k++) {
+	//		u2 = ut * u;
+	//		nk_1 = sqrt(u2[0][0]);
+	//		y = u / nk_1;
+	//		u = a * y;
+	//		y.T();
+	//		b = (y * u).data[0];
+	//		if (k > 1 && (abs(b - b1) / b <= accurate)) {
+	//			return b;
+	//		}else {
+	//			b1 = b;
+	//		}
+	//	}
+	//	return 0;
+	//}
 
 
 	// ³ýÒò×Ó¾ØÕó
