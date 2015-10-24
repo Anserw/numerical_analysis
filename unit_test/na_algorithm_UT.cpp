@@ -49,6 +49,21 @@ TEST(solveLSEwithCMEGETest, solve3x3problem1)
 	EXPECT_NEAR(0.01415, x[2], 0.0005);
 }
 
+TEST(solveLSEwithCMEGETest, solve3x3problem2)
+{
+	Mat A(3, 3);
+	Vec b(3);
+	Vec x(3);
+	A.init("6 -12 6 -21 -3 24 -12 -12 51");
+	EXPECT_DOUBLE_EQ(51, A[2][2]);
+	b.init("-0.4082 -0.8981 -0.1633 ");
+	EXPECT_DOUBLE_EQ(-0.1633, b[2]);
+	EXPECT_TRUE(solveLSEwithCMEGE(A, x, b));
+	EXPECT_NEAR(0.068, x[0], 0.0005);
+	EXPECT_NEAR(0.0844, x[1], 0.0005);
+	EXPECT_NEAR(0.0327, x[2], 0.0005);
+}
+
 TEST(solveLinearSimultaneousEquationsTest, solve3x3problemWithSequentialGaussianElimination)
 {
 	double l_mat_A[9] = { 0.012, 0.01, 0.167, 1, 0.8334, 5.91, 3200, 1200, 4.2 };

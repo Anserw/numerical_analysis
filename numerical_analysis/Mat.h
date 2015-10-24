@@ -36,7 +36,8 @@ namespace na {
 		double normi();
 		double normF();
 
-		
+		double eigenValueMax(const double accurate = 0.0001);
+		double eigenValueMin(const double accurate = 0.00001);
 
 		void print();
 
@@ -68,7 +69,7 @@ namespace na {
 	};
 	
 
-	//static double eigenValueMax(const Mat& a, const double accurate = 0.0001);
+	
 }
 
 

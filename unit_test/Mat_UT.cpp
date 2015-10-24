@@ -42,6 +42,20 @@ TEST(MatTest, func_norm)
 	EXPECT_DOUBLE_EQ(sqrt(79), a.normF());
 }
 
+TEST(MatTest, func_eigenValueMax)
+{
+	Mat a(3, 3);
+	EXPECT_TRUE(a.init("6 -12 6 -21 -3 24 -12 -12 51"));
+	EXPECT_NEAR(44.997, a.eigenValueMax(), 0.001);
+}
+
+TEST(MatTest, func_eigenValueMin)
+{
+	Mat a(3, 3);
+	EXPECT_TRUE(a.init("6 -12 6 -21 -3 24 -12 -12 51"));
+	EXPECT_NEAR(-9, a.eigenValueMin(), 0.001);
+}
+
 TEST(VecTest, operatorBrace)
 {
 	double l_vec[3] = { 1, 2, 3 };

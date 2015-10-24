@@ -30,7 +30,7 @@ namespace na {
 		const Mat& A, 
 		Vec& x, 
 		const Vec& b,
-		enum_method method = METHOD_SEQUENTIAL_GAUSSIAN_ELIMINATION
+		enum_method method = METHOD_COLUMN_MAJOR_ELEMENT_GAUSSIAN_ELIMINATION
 	);
 
 	bool solveLSEwithSGE(const Mat& A, Vec& x, const Vec& b);

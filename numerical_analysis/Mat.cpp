@@ -2,6 +2,8 @@
 #include "Mat.h"
 #include <iomanip>
 #include "math.h"
+#include "Vec.h"
+#include "na_algorithm.h"
 
 namespace na{
 
@@ -47,16 +49,22 @@ namespace na{
 		int a, b;
 		for (int i = 0; i < height; i++){
 			for (int j = 0; j < width; j++){
-				a = getIndex(i, j, width);
-				b = getIndex(j, i, height);
-				temp = data[a];
-				data[a] = data[b];
-				data[b] = temp;
+				if (i != j) {
+					a = getIndex(i, j, width);
+					b = getIndex(j, i, height);
+					if (a != b) {
+						temp = data[a];
+						data[a] = data[b];
+						data[b] = temp;
+					}					
+				}
+				
 			}
 		}
-		temp = width;
+		int tempi;
+		tempi = width;
 		width = height;
-		height = temp;
+		height = tempi;
 	}
 
 	Mat::~Mat()
@@ -347,35 +355,58 @@ namespace na{
 		return ret;
 	}
 
-	//double eigenValueMax(const Mat a, double accurate)
-	//{
-	//	double nk_1;
-	//	int width;
-	//	width = a.width;
-	//	Vec u(width);
-	//	for (int i = 0; i < width; i++){
-	//		u[i] = 1;
-	//	}
-	//	Vec ut(u);
-	//	ut.T();
-	//	Mat u2;
-	//	Vec y;
-	//	double b, b1;
-	//	for (int k = 1;; k++) {
-	//		u2 = ut * u;
-	//		nk_1 = sqrt(u2[0][0]);
-	//		y = u / nk_1;
-	//		u = a * y;
-	//		y.T();
-	//		b = (y * u).data[0];
-	//		if (k > 1 && (abs(b - b1) / b <= accurate)) {
-	//			return b;
-	//		}else {
-	//			b1 = b;
-	//		}
-	//	}
-	//	return 0;
-	//}
+	double Mat::eigenValueMax(double accurate)
+	{
+		double nk_1, b, b1;
+		Vec u(width);
+		u.zero();
+		u[0] = 1;
+		Vec ut(u), y;
+		ut.T();		
+		for (int k = 1;; k++) {			
+			nk_1 = sqrt((ut * u)[0][0]);
+			y = u / nk_1;
+			u = *this * y;
+			ut = u;
+			ut.T();
+			y.T();
+			b = (y * u).data[0];
+			if (k > 1 && (abs(b - b1) / abs(b) <= accurate)) {
+				return b;
+			}else {
+				b1 = b;
+			}
+		}
+		return 0;
+	}
+
+	double Mat::eigenValueMin(double accurate)
+	{
+		double nk_1, b, b1;
+		Vec u(width);
+		u.zero();
+		u[0] = 1;
+		u[1] = 1;
+		u[2] = 1;
+		Vec ut(u), y;
+		ut.T();
+		for (int k = 1;; k++) {
+			nk_1 = sqrt((ut * u)[0][0]);
+			y = u / nk_1;
+			solveLinearSimultaneousEquations(*this, u, y);
+			ut = u;
+			ut.T();
+			y.T();
+			b = (y * u).data[0];
+			if (k > 1 && (abs(1/b - 1/b1) / abs(1/b) <= accurate)) {
+				return 1/b;
+			}
+			else {
+				b1 = b;
+			}
+		}
+		return 0;
+	}
 
 
 	// ³ýÒò×Ó¾ØÕó
