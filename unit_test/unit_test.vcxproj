@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\Coding\3rd_party\gtest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Coding\3rd_party\gtest\Debug;E:\Coding\C Cpp\numerical_analysis\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\git\googletest\googletest\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\git\googletest\googletest\msvc\gtest\Debug;D:\git\numerical_analysis\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

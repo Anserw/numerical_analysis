@@ -92,5 +92,37 @@ namespace na {
 		return data[index];
 	}
 
+	Vec& Vec::operator=(Vec& a)
+	{
+		width = 1;
+		height = a.height;
+		items_sum = height;
+		length = a.length;
+		if (data) {
+			delete data;
+		}
+		data = new double[items_sum];
+		for (int i = 0; i < length; i++) {
+			data[i] = a.data[i];
+		}
+		return *this;
+	}
+
+	Vec& Vec::operator=(Mat& a)
+	{
+		width = 1;
+		height = a.height;
+		items_sum = height;
+		length = a.height;
+		if (data) {
+			delete data;
+		}
+		data = new double[items_sum];
+		for (int i = 0; i < length; i++) {
+			data[i] = a.data[i];
+		}
+		return *this;
+	}
+
 }
 

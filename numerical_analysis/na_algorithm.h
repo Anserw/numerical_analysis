@@ -47,6 +47,19 @@ namespace na {
 
 	bool solve3BLSEwithSpeedupMethod(const Mat& A, Vec& x, const Vec& b);
 
+	template<class T>inline T sgn(T a)
+	{
+		if (a > 0) {
+			return 1;
+		}
+		else if (a < 0) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+	}
+
 	template<class T>inline T max(T a, T b);
 
 	template<class T>inline T max(T a, T b, T c);

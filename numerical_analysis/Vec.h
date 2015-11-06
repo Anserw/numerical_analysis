@@ -19,6 +19,8 @@ namespace na {
 		double normi();
 
 		double& operator [](int index);
+		Vec& operator=(Vec& a);
+		Vec& operator=(Mat& a);
 
 	public:
 		int length;

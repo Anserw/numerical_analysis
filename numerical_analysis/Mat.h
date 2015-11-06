@@ -38,14 +38,19 @@ namespace na {
 
 		double eigenValueMax(const double accurate = 0.0001);
 		double eigenValueMin(const double accurate = 0.00001);
+		double* eigenValues();
+
+		void hessenberg();
 
 		void print();
 
-		friend Mat operator+(const Mat& a, const Mat& b);
-		friend Mat operator-(const Mat& a, const Mat& b);
-		friend Mat operator*(const Mat& a, const Mat& b);
-		friend Mat operator/(const Mat& a, const double& b);
+		friend Mat& operator+(const Mat& a, const Mat& b);
+		friend Mat& operator-(const Mat& a, const Mat& b);
+		friend Mat& operator*(const Mat& a, const Mat& b);
+		friend Mat& operator*(const Mat& a, const double b);
+		friend Mat& operator/(const Mat& a, const double& b);
 		double* operator [](int index);
+		Mat& operator=(Mat& a);
 
 	public:
 		int width, height, items_sum;

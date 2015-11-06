@@ -48,7 +48,7 @@ namespace na{
 		double temp;
 		int a, b;
 		for (int i = 0; i < height; i++){
-			for (int j = 0; j < width; j++){
+			for (int j = i+1; j < width; j++){
 				if (i != j) {
 					a = getIndex(i, j, width);
 					b = getIndex(j, i, height);
@@ -69,6 +69,7 @@ namespace na{
 
 	Mat::~Mat()
 	{
+		delete(data);
 	}
 
 	bool Mat::init(double* input_data)
@@ -212,44 +213,44 @@ namespace na{
 		std::cout << std::endl;
 	}
 
-	Mat operator+(const Mat& a, const Mat& b)
+	Mat& operator+(const Mat& a, const Mat& b)
 	{
 		if (a.width != b.width || a.height != b.height) {
 			std::cout << "Error: Can't add them!" << std::endl;
 			return Mat();
 		}
 		else {
-			Mat ret(a.width, a.height);
+			Mat* ret = new Mat(a.width, a.height);
 			for (int i = 0; i < a.width*a.height; i++) {
-				ret.data[i] = a.data[i] + b.data[i];
+				ret->data[i] = a.data[i] + b.data[i];
 			}
-			return ret;
+			return *ret;
 		}
 	}
 
-	Mat operator-(const Mat& a, const Mat& b)
+	Mat& operator-(const Mat& a, const Mat& b)
 	{
 		if (a.width != b.width || a.height != b.height) {
 			std::cout << "Error: Can't - them!" << std::endl;
 			return Mat();
 		}
 		else {
-			Mat ret(a.width, a.height);
+			Mat* ret = new Mat(a.width, a.height);
 			for (int i = 0; i < a.width*a.height; i++) {
-				ret.data[i] = a.data[i] - b.data[i];
+				ret->data[i] = a.data[i] - b.data[i];
 			}
-			return ret;
+			return *ret;
 		}
 	}
 
-	Mat operator*(const Mat& a, const Mat& b)
+	Mat& operator*(const Mat& a, const Mat& b)
 	{
 		if (a.width != b.height) {
 			std::cout << "Error: Can't * them!" << std::endl;
 			return Mat();
 		}
 		else {
-			Mat ret(b.width, a.height);
+			Mat* ret = new Mat(b.width, a.height);
 			double temp;
 			for (int i = 0; i < a.height; i++) {
 				for (int j = 0; j < b.width; j++) {
@@ -257,20 +258,29 @@ namespace na{
 					for (int k = 0; k < a.width; k++) {
 						temp += a.getItem(i, k) * b.getItem(k, j);
 					}
-					ret.setItem(i, j, temp);
+					ret->setItem(i, j, temp);
 				}
 			}
-			return ret;
+			return *ret;
 		}
 	}
 
-	Mat operator/(const Mat& a, const double& b)
+	Mat& operator*(const Mat& a, const double b)
 	{
-		Mat ret(a);
-		for (int i = 0; i < ret.items_sum; i++) {
-			ret.data[i] /= b;
+		Mat* ret = new Mat(a);
+		for (int i = 0; i < ret->items_sum; i++) {
+			ret->data[i] *= b;
 		}
-		return ret;
+		return *ret;
+	}
+
+	Mat& operator/(const Mat& a, const double& b)
+	{
+		Mat* ret = new Mat(a);
+		for (int i = 0; i < ret->items_sum; i++) {
+			ret->data[i] /= b;
+		}
+		return *ret;
 	}
 
 	double* Mat::operator [](int index)
@@ -278,6 +288,20 @@ namespace na{
 		return data + index*width;
 	}
 
+	Mat& Mat::operator=(Mat& a)
+	{
+		width = a.width;
+		height = a.height;
+		items_sum = a.items_sum;
+		if (data) {
+			delete data;
+		}
+		data = new double[items_sum];
+		for (int i = 0; i < items_sum; i++) {
+			data[i] = a.data[i];
+		}
+		return *this;
+	}
 
 
 	
@@ -365,7 +389,7 @@ namespace na{
 		ut.T();		
 		for (int k = 1;; k++) {			
 			nk_1 = sqrt((ut * u)[0][0]);
-			y = u / nk_1;
+			y = Vec(u / nk_1);
 			u = *this * y;
 			ut = u;
 			ut.T();
@@ -408,6 +432,59 @@ namespace na{
 		return 0;
 	}
 
+	double* Mat::eigenValues()
+	{
+		return 0;
+	}
+
+	void Mat::hessenberg()
+	{
+		int n = width;
+		bool all_zero;
+		Mat at;
+		Vec u(n), pr(n), qr(n), wr(n), ut(n);		
+		double dr, cr, hr, tr;
+		Mat& a = *this;
+		for (int r = 0; r < n - 2; r++)	{
+			all_zero = true;
+			for (int i = r + 2; i < n; i++) {
+				if (a[i][r]) {
+					all_zero = false;
+					break;
+				}				
+			}
+			if (!all_zero) {
+				dr = 0;
+				for (int i = r + 1; i < n; i++) {
+					dr += (a[i][r] * a[i][r]);
+				}
+				dr = sqrt(dr);
+				cr = a[r + 1][r] == 0 ? dr : -sgn(a[r + 1][r]) * dr;
+				//cr = -1 * sgn(a[r + 1][r]) * dr;
+				hr = cr*cr - cr*a[r + 1][r];
+
+				for (int i = 0; i <= r; i++) {
+					u[i] = 0;
+				}
+				u[r+1] = a[r + 1][r] - cr;
+				for (int i = r+2; i < n; i++) {
+					u[i] = a[i][r];
+				}
+				ut = u;
+				ut.T();
+				at = a;
+				at.T();
+				pr = at * u / hr;
+				qr = a * u / hr;
+				pr.T();
+				tr = (pr * u).data[0] / hr;
+				wr = qr - u * tr;
+				ut = u;
+				ut.T();				
+				a = a - wr * ut - u * pr;						
+			}
+		}
+	}
 
 	// ³ıÒò×Ó¾ØÕó
 	void MCOF(double **a,

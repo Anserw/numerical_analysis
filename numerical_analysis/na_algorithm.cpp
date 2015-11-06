@@ -334,13 +334,20 @@ namespace na{
 		return true;
 	}
 
+	//template<class T>T sgn(T a)
+	//{		
+	//	if (a > 0) {
+	//		return 1;
+	//	}else if (a < 0) {		
+	//		return -1;
+	//	}else {
+	//		return 0;
+	//	}
+	//}
+
 	template<class T>T max(T a, T b)
 	{
-		if (a < b) {
-			return b;
-		}else{
-			return a;
-		}
+		return a < b ? b : a;
 	}
 
 	template<class T>T max(T a, T b, T c)
@@ -350,11 +357,7 @@ namespace na{
 
 	template<class T>T min(T a, T b)
 	{
-		if (a < b) {
-			return a;
-		}else{
-			return b;
-		}
+		return a <= b ? a : b;
 	}
 
 	template<class T>T min(T a, T b, T c)

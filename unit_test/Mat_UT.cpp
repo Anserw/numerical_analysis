@@ -56,6 +56,41 @@ TEST(MatTest, func_eigenValueMin)
 	EXPECT_NEAR(-9, a.eigenValueMin(), 0.001);
 }
 
+TEST(MatTest, basic)
+{
+	Mat a(3, 3);
+	Mat b(3, 3);
+	Mat c;
+	//a.init("1 2 3 4 5 6 7 8 9");
+	//b.init("1 2 3 4 5 6 7 8 9");
+	//c = a + b;
+	//c.print();
+	//c = a - b;
+	//c.print();
+	//c = a + b * 2;
+	//c.print();
+	//c = a + b / 2;
+	//c.print();
+}
+
+TEST(MatTest, func_hessenberg)
+{
+	Mat a(3, 3);
+	a.init("1 2 3 4 5 6 7 8 9");
+	a.hessenberg();
+	EXPECT_NEAR(0, a[2][0], 0.001);	
+}
+
+TEST(MatTest, func_hessenberg2)
+{
+	Mat a(4, 4);
+	a.init("2 1 3 4 1 -1 2 1 -1 2 1 2 1 0 -1 3");
+	a.hessenberg();
+	EXPECT_NEAR(0, a[2][0], 0.001);
+	EXPECT_NEAR(0, a[3][0], 0.001);
+	EXPECT_NEAR(0, a[3][1], 0.001);
+}
+
 TEST(VecTest, operatorBrace)
 {
 	double l_vec[3] = { 1, 2, 3 };
@@ -75,3 +110,4 @@ TEST(VecTest, func_norm)
 	EXPECT_DOUBLE_EQ(2 * sqrt(21), x.norm2());
 	EXPECT_DOUBLE_EQ(8, x.normi());
 }
+
