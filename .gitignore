@@ -18,6 +18,9 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+compute_practice/
+compute_practice2/
+
 
 # Roslyn cache directories
 *.ide/
