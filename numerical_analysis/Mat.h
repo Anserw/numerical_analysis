@@ -17,6 +17,8 @@ namespace na {
 
 		void zero(void);
 		void resize(int w, int h);		
+		void cut(int w, int h);
+		void cut(int x1, int y1, int x2, int y2);
 		void T();
 		void swapLine(int l1, int l2);
 		void swapLine(int l1, int l2, int startIndex, int endIndex);
@@ -38,7 +40,7 @@ namespace na {
 
 		double eigenValueMax(const double accurate = 0.0001);
 		double eigenValueMin(const double accurate = 0.00001);
-		double* eigenValues();
+		double* eigenValues(double e=0.001, int L=1000);
 
 		void hessenberg();
 

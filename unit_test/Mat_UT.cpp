@@ -73,6 +73,18 @@ TEST(MatTest, basic)
 	//c.print();
 }
 
+TEST(MatTest, func_cut)
+{
+	Mat a(3, 3);
+	a.init("1 2 3 4 5 6 7 8 9");
+	a.cut(2, 2);
+	EXPECT_NEAR(1, a[0][0], 0.00001);
+	EXPECT_NEAR(2, a[0][1], 0.00001);
+	EXPECT_NEAR(4, a[1][0], 0.00001);
+	EXPECT_NEAR(5, a[1][1], 0.00001);
+	EXPECT_EQ(4, a.items_sum);
+}
+
 TEST(MatTest, func_hessenberg)
 {
 	Mat a(3, 3);

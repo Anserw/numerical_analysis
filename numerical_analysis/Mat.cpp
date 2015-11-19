@@ -43,6 +43,29 @@ namespace na{
 		data = new double[items_sum];
 	}
 
+	void Mat::cut(int w, int h)
+	{
+		this->cut(0, 0, w-1, h-1);
+	}
+
+	void Mat::cut(int x1, int y1, int x2, int y2)
+	{
+		int w, h;
+		w = x2 - x1 + 1;
+		h = y2 - y1 + 1;
+		double *new_data = new double[w*h];
+		for (int i = y1; i <= y2; i++){
+			for (int j = x1; j <= x2; j++) {
+				new_data[getIndex(i-y1, j-x1, w)] = data[getIndex(i, j)];
+			}
+		}
+		delete(data);
+		data = new_data;
+		width = w;
+		height = h;
+		items_sum = w*h;
+	}
+
 	void Mat::T()
 	{
 		double temp;
@@ -431,12 +454,59 @@ namespace na{
 		}
 		return 0;
 	}
-
-	double* Mat::eigenValues()
+/*
+	double* Mat::eigenValues(double e, int L)
 	{
+		
+		Mat a(*this);
+		int n = width, m, k, t = 0, step=0;
+		double *ret = new double[n];
+		double s1, s2;
+		//step 1
+		a.hessenberg();
+		//step 2
+		k = 1;
+		m = n;
+		//step 3		
+		while (abs(a[m - 1][m - 2]) <= e) {
+			ret[t++] = a[m - 1][m - 1];
+			m--;
+			//step 4
+			if (m == 1) {
+				ret[t++] = a[0][0]; 
+				step = 11;//go to 11
+			}else if (m == 0) {
+				step = 11;
+				//go to 11
+			}else if (m > 1) {
+				//go to 3
+			}
+		}
+		if (step <= 5) {
+			//step 5			
+			Mat Dk(a);
+			Dk.cut(m - 2, m - 2, m - 1, m - 1);
+			solveQuadraticEquation(1, -a[m - 2][m - 2] - a[m - 1][m - 1], Dk.det(), s1, s2);
+			//step 6
+			if (m == 2) {
+				ret[t++] = s1;
+				ret[t++] = s2;
+				step = 11; //go to step 11
+			}
+		}
+		if (step <= 7) {
+			//step 7
+			if (abs(a[m - 2][m - 3]) <= e) {
+				ret[t++] = s1;
+				ret[t++] = s2;
+				m -= 2;
+			}
+		}
+		
+		
 		return 0;
 	}
-
+*/
 	void Mat::hessenberg()
 	{
 		int n = width;
@@ -485,6 +555,8 @@ namespace na{
 			}
 		}
 	}
+
+
 
 	// ³ýÒò×Ó¾ØÕó
 	void MCOF(double **a,

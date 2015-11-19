@@ -25,6 +25,7 @@ namespace na {
 		METHOD_JACOBI_ITERATION
 	};
 
+	bool solveQuadraticEquation(const double& a, const double& b, const double& c, double& x1, double& x2);
 
 	bool solveLinearSimultaneousEquations(
 		const Mat& A, 

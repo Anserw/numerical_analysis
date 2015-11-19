@@ -4,6 +4,14 @@
 
 using namespace na;
 
+TEST(solveQuadraticEquation, test1)
+{
+	double x1, x2;
+	EXPECT_TRUE( solveQuadraticEquation(1, -7, 12, x1, x2) );
+	EXPECT_NEAR(4, x1, 0.0001);
+	EXPECT_NEAR(3, x2, 0.0001);
+}
+
 TEST(solveLSEwithSGETest, solve3x3problem1)
 {
 	double l_mat_A[9] = { 8.1, 2.3, -1.5, 0.5, -6.23, 0.87, 2.5, 1.5, 10.2 };

@@ -2,6 +2,20 @@
 #include "na_algorithm.h"
 
 namespace na{
+	bool solveQuadraticEquation(const double& a, const double& b, const double& c, double& x1, double& x2)
+	{
+		double delta;
+		delta = b*b - 4 * a*c;
+		if (delta < 0) {
+			return false;
+		}
+		delta = sqrt(delta);
+		x1 = (-b + delta) / a / 2;
+		x2 = (-b - delta) / a / 2;
+		return true;
+	}
+
+
 	bool solveLinearSimultaneousEquations(const Mat& A, Vec& x, const Vec& b,
 		enum_method method)
 	{
