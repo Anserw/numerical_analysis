@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Mat.h"
+#include <stdlib.h>
 #include <iomanip>
 #include "math.h"
 #include "Vec.h"
@@ -240,7 +240,7 @@ namespace na{
 	{
 		if (a.width != b.width || a.height != b.height) {
 			std::cout << "Error: Can't add them!" << std::endl;
-			return Mat();
+			exit(1);
 		}
 		else {
 			Mat* ret = new Mat(a.width, a.height);
@@ -255,7 +255,7 @@ namespace na{
 	{
 		if (a.width != b.width || a.height != b.height) {
 			std::cout << "Error: Can't - them!" << std::endl;
-			return Mat();
+			exit(1);
 		}
 		else {
 			Mat* ret = new Mat(a.width, a.height);
@@ -270,7 +270,7 @@ namespace na{
 	{
 		if (a.width != b.height) {
 			std::cout << "Error: Can't * them!" << std::endl;
-			return Mat();
+			exit(1);
 		}
 		else {
 			Mat* ret = new Mat(b.width, a.height);
@@ -412,7 +412,7 @@ namespace na{
 		ut.T();		
 		for (int k = 1;; k++) {			
 			nk_1 = sqrt((ut * u)[0][0]);
-			y = Vec(u / nk_1);
+			y = u / nk_1;
 			u = *this * y;
 			ut = u;
 			ut.T();

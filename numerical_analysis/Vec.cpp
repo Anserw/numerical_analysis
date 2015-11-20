@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Vec.h"
 #include "math.h"
 
@@ -58,7 +57,7 @@ namespace na {
 		double ret;
 		ret = 0;
 		for (int i = 0; i < length; i++) {
-			ret += abs(getItem(i, 0));
+			ret += fabs(getItem(i, 0));
 		}
 		return ret;
 	}
@@ -79,7 +78,7 @@ namespace na {
 	{
 		double ret = -1, temp;
 		for (int i = 0; i < length; i++) {
-			temp = abs(getItem(i, 0));
+			temp = fabs(getItem(i, 0));
 			if (temp > ret) {
 				ret = temp;
 			}

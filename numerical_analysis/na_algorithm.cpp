@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "na_algorithm.h"
+#include "math.h"
 
 namespace na{
 	bool solveQuadraticEquation(const double& a, const double& b, const double& c, double& x1, double& x2)
@@ -90,8 +90,8 @@ namespace na{
 		for (int k = 0; k < n - 1; k++) {
 			maxa = -1;
 			for (int i = k; i < n; i++) {
-				if (abs(a[i][k]) > maxa) {
-					maxa = abs(a[i][k]);
+				if (fabs(a[i][k]) > maxa) {
+					maxa = fabs(a[i][k]);
 					maxik = i;
 				}
 			}
@@ -195,8 +195,8 @@ namespace na{
 					temp += a[i][t] * a[t][k];
 				}
 				s[i] = a[i][k] - temp;
-				if (abs(s[i]) > maxsi) {
-					maxsi = abs(s[i]);
+				if (fabs(s[i]) > maxsi) {
+					maxsi = fabs(s[i]);
 					M[k] = i;
 				}
 			}
