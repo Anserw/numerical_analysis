@@ -1,14 +1,13 @@
 // Demo.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
-#include "../numerical_analysis/na_algorithm.h"
+#include "../numerical_analysis/include/na_algorithm.h"
 #include <iostream>
 
 using namespace std;
 using namespace na;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	double l_mat_A[9] = { 8.1, 2.3, -1.5, 0.5, -6.23, 0.87, 2.5, 1.5, 10.2 };
 	double l_mat_b[3] = { 6.1, 2.3, 1.8 };
@@ -52,7 +51,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	b.print();
 	x.print();
 	
-	system("pause");
 	return 0;
 }
 
