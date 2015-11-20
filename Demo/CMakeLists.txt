@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(
 	include
 )
 
-AUX_SOURCE_DIRECTORY(./src DIR_SRCS)
+AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 
 SET(numerical_analysis
 	${DIR_SRCS}
@@ -14,10 +14,6 @@ SET(numerical_analysis
 
 SET(LIBRARIES
 	m
-)
-
-SET(LIBRARY_OUTPUT_PATH
-	../lib
 )
 
 ADD_LIBRARY(numerical_analysis ${DIR_SRCS})
