@@ -1,7 +1,6 @@
-#include "stdafx.h"
 #include <gtest/gtest.h>
-#include "../numerical_analysis/Mat.h"
-#include "../numerical_analysis/Vec.h"
+#include "../numerical_analysis/include/Mat.h"
+#include "../numerical_analysis/include/Vec.h"
 #include "math.h"
 
 using namespace na;

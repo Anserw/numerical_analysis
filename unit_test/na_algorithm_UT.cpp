@@ -1,6 +1,5 @@
-#include "stdafx.h"
 #include <gtest/gtest.h>
-#include "../numerical_analysis/na_algorithm.h"
+#include "../numerical_analysis/include/na_algorithm.h"
 
 using namespace na;
 
